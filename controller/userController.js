@@ -24,5 +24,14 @@ module.exports = {
             .catch( (err) => { 
                 res.status(500).json({message: "findOne Error!"});
             });
+    },
+    createUser(req,res) {
+        User.create(req.body, function(err, user) {
+            if (err) {
+                res.status(500).json({message: "Create Error!"});
+            } else {
+                res.status(200).json(user);
+            }
+        })
     }
 }

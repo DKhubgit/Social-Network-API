@@ -1,8 +1,12 @@
 const router = require('express').Router();
 //grab route action functions from controller
-const { getAllUsers, getOneUser } = require('../../controller/userController')
+const { 
+    getAllUsers, 
+    getOneUser,
+    createUser, 
+} = require('../../controller/userController')
 
-router.route('/').get(getAllUsers);
+router.route('/').get(getAllUsers).post(createUser);
 
 router.route('/:userId').get(getOneUser);
 
