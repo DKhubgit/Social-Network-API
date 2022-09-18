@@ -12,8 +12,8 @@ module.exports = {
     },
     getOneUser(req,res) {
         User.findOne({_id: req.params.userId})
-            .select('-__v')
             .populate('thoughts')
+            .populate('friends')
             .then( function(user) {
                 if (user) {
                     res.status(200).json(user);
@@ -51,5 +51,22 @@ module.exports = {
                 res.status(200).json({ results, message: "Deleted"})
             }
         })
+    },
+    addfriend(req,res) {
+        if (req.params.userId === req.params.friendId) {
+            res.json({message: "Friends count as someone other than yourself!"})
+        } else {
+            User.findOneAndUpdate(
+                {_id: req.params.userId},
+                {$addToSet: { friends: req.params.friendId}},
+                {new: true},
+                function(err, user) {
+                    if (err) {
+                        res.status(500).json({message: "Adding Friend Error!"});
+                    } else {
+                        res.status(200).json(user);
+                    }
+                })
+        }
     }
 }
