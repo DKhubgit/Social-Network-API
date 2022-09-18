@@ -33,5 +33,14 @@ module.exports = {
                 res.status(200).json(user);
             }
         })
+    },
+    async updateUser(req,res) {
+        User.findOneAndUpdate({_id: req.params.userId}, req.body, {new: true}, function(err, user) {
+            if (err) {
+                res.status(500).json({message: "Update Error!"});
+            } else {
+                res.status(200).json(user);
+            }
+        });
     }
 }

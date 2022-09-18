@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema( {
         virtuals: true,
     },
     id: false,
+    versionKey: false, //versionKey only works in arrays, user is not an array
 })
 
 //virtual getter for number of friends, will not persist in DB.
