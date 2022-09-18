@@ -34,7 +34,7 @@ module.exports = {
             }
         })
     },
-    async updateUser(req,res) {
+    updateUser(req,res) {
         User.findOneAndUpdate({_id: req.params.userId}, req.body, {new: true}, function(err, user) {
             if (err) {
                 res.status(500).json({message: "Update Error!"});
@@ -42,5 +42,14 @@ module.exports = {
                 res.status(200).json(user);
             }
         });
+    },
+    deleteUser(req,res) {
+        User.findOneAndDelete({_id: req.params.userId}, function(err, results) {
+            if (err) {
+                res.status(500).json({message: "Delete Error!"});
+            } else {
+                res.status(200).json({ results, message: "Deleted"})
+            }
+        })
     }
 }
