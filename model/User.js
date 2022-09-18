@@ -26,6 +26,7 @@ const userSchema = new mongoose.Schema( {
     toJSON: {
         virtuals: true,
     },
+    id: false,
 })
 
 //virtual getter for number of friends, will not persist in DB.

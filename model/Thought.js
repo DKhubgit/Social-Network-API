@@ -45,6 +45,7 @@ const thoughtSchema = new mongoose.Schema( {
     toJson: {
         virtuals: true,
     },
+    id: false,
 });
 
 //virtual getter for number of reactions, will not persist in DB.
