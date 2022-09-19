@@ -15,12 +15,9 @@ const reactionSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-},
-{
-    //only appends the 'createdAt' timestamp
-    timestamps: {
-        createdAt: true,
-        updatedAt: false
+    createdAt: {
+        type: Date,
+        default: Date.now,
     }
 });
 
