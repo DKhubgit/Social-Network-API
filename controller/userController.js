@@ -12,6 +12,7 @@ module.exports = {
     },
     getOneUser(req,res) {
         User.findOne({_id: req.params.userId})
+            .select('-__v')
             .populate('thoughts')
             .populate('friends')
             .then( function(user) {
@@ -68,5 +69,21 @@ module.exports = {
                     }
                 })
         }
+    },
+    deleteFriend(req,res) {
+        User.findOne(
+            {_id: req.params.userId}, function(err, user) {
+                if (err) {
+                    res.status(500).json({message: "finding Friend in 'deleteFriend' Error!"});
+                } else {
+                    if(user) {
+                        user.friends.pull({_id: req.params.friendId});
+                        user.save();
+                        res.status(200).json(user);
+                    } else {
+                        res.status(404).json({message: "could not find user!"})
+                    }
+                }
+            });
     }
 }
