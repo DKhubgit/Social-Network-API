@@ -61,5 +61,18 @@ module.exports = {
                 res.status(200).json({ result, message: "Deleted!"});
             }
         })
+    },
+    addReaction(req,res) {
+        Thought.findOneAndUpdate(
+            {_id: req.params.thoughtId},
+            {$addToSet: {reactions: req.body }},
+            {new: true},
+            function(err, thought) {
+            if (err) {
+                res.status(500).json({message: "Find Thought error"});
+            } else {
+                res.status(200).json(thought);
+            }
+        })
     }
 }

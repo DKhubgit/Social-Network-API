@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 //schema for subdocument, must initialize first before appending to thought Schema
 const reactionSchema = new mongoose.Schema({
     reactionId: {
-        type: mongoose.Types.ObjectId, //only the type
+        type: mongoose.Schema.Types.ObjectId, //only the type
         default: new mongoose.Types.ObjectId(), //creates a new id
     },
     reactionBody: {
@@ -19,6 +19,9 @@ const reactionSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     }
+},
+{
+    _id: false,
 });
 
 const thoughtSchema = new mongoose.Schema( {
