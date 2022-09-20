@@ -83,7 +83,7 @@ module.exports = {
                 if (thought) {
                     thought.reactions.pull({reactionId: req.body.reactionId})
                     thought.save();
-                    res.status(200).json({thought, message: "Deleted!"});
+                    res.status(200).json({thought, message: "Deleted reaction!"});
                 } else {
                     res.status(404).json({message: "Could not find thought"});
                 }

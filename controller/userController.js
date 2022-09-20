@@ -1,4 +1,4 @@
-const { User } = require('../model')
+const { User, Thought } = require('../model')
 
 module.exports = {
     getAllUsers(req,res) {
@@ -45,11 +45,19 @@ module.exports = {
         });
     },
     deleteUser(req,res) {
-        User.findOneAndDelete({_id: req.params.userId}, function(err, results) {
+        User.findOneAndDelete({_id: req.params.userId}, function(err, result) {
             if (err) {
-                res.status(500).json({message: "Delete Error!"});
+                res.status(500).json({message: "Finding user Error!"});
             } else {
-                res.status(200).json({ results, message: "Deleted"})
+                if (result) {
+                    Thought.deleteMany({ username: result.username }, function(err, results) {
+                        if (err) {
+                            res.status(500).json({message: "deleting specific thoughts error!"});
+                        } else {
+                            res.status(200).json({user: result, thoughts: results,})
+                        }
+                    })
+                }
             }
         })
     },
@@ -79,7 +87,7 @@ module.exports = {
                     if(user) {
                         user.friends.pull({_id: req.params.friendId});
                         user.save();
-                        res.status(200).json(user);
+                        res.status(200).json({user, message: "Deleted Friend!"});
                     } else {
                         res.status(404).json({message: "could not find user!"})
                     }
