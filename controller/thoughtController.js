@@ -74,5 +74,20 @@ module.exports = {
                 res.status(200).json(thought);
             }
         })
+    },
+    deleteReaction(req,res) {
+        Thought.findOne({_id: req.params.thoughtId}, function(err, thought) {
+            if (err) {
+                res.status(500).json({message: "Finding Thought error"});
+            } else {
+                if (thought) {
+                    thought.reactions.pull({reactionId: req.body.reactionId})
+                    thought.save();
+                    res.status(200).json({thought, message: "Deleted!"});
+                } else {
+                    res.status(404).json({message: "Could not find thought"});
+                }
+            }
+        })
     }
 }
