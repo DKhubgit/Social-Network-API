@@ -52,5 +52,14 @@ module.exports = {
                 }
             }
         );
+    },
+    deleteThought(req,res) {
+        Thought.findOneAndDelete({_id: req.params.thoughtId}, function(err, result) {
+            if (err) {
+                res.status(500).json({message: "Delete thought error!"})
+            } else {
+                res.status(200).json({ result, message: "Deleted!"});
+            }
+        })
     }
 }
