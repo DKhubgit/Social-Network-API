@@ -54,7 +54,9 @@ If you would like to contribute, let me know by contacting me! Info down at the 
 
 ## Tests 
 
+https://user-images.githubusercontent.com/103972201/192109624-410e4141-eba3-459f-8eef-c1cab827acd7.mp4
 
+Credits to Clideo for compressing the file!
 
 ## Questions
 
